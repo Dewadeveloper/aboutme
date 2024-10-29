@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DEWA PRATAMA - Portfolio</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(rgba(0,0,0,0.85), rgba(0,0,0,0.85)),
+                        url('https://images.unsplash.com/photo-1555066931-bf19f8fd1085') no-repeat center center fixed;
+            background-size: cover; /* Mengubah ukuran latar belakang agar tidak terlalu zoom */
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: #fff;
+            min-height: 100vh;
+            perspective: 1000px;
+            text-rendering: optimizeLegibility;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem; /* Mengurangi padding untuk tampilan lebih seimbang */
+            perspective: 2000px;
+            background: rgba(0,0,0,0.6);
+            border-radius: 25px;
+            box-shadow: 
+                0 0 50px rgba(0,0,0,0.5),
+                inset 0 0 30px rgba(0,255,255,0.1);
+            backdrop-filter: blur(10px);
+        }
+
+        .profile {
+            text-align: center;
+            transform-style: preserve-3d;
+        }
+
+        .name {
+            font-size: 3.5rem; /* Ukuran font */
+            font-weight: 900;
+            letter-spacing: 3px;
+            margin: 2rem 0;
+            color: #0ff; /* Warna biru yang sama dengan judul proyek */
+            text-shadow: 
+                0 0 5px rgba(0, 255, 255, 0.7), /* Efek glow biru */
+                0 0 10px rgba(0, 255, 255, 0.5),
+                0 0 15px rgba(0, 255, 255, 0.3);
+            opacity: 0;
+            animation: fadeIn 1s ease forwards 1s;
+            transition: transform 0.3s ease, text-shadow 0.3s ease; /* Transisi halus */
+        }
+
+        .name:hover {
+            transform: translateZ(10px) scale(1.05); /* Efek 3D saat hover */
+            text-shadow: 
+                0 0 10px rgba(0, 255, 255, 1), /* Efek glow lebih kuat saat hover */
+                0 0 20px rgba(0, 255, 255, 0.8),
+                0 0 30px rgba(0, 255, 255, 0.6);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .title {
+            font-size: 2.5rem; /* Ukuran font */
+            font-weight: 700;
+            color: #ffcc00; /* Warna kuning */
+            margin: 1rem 0; /* Menambahkan margin untuk jarak */
+            transition: transform 0.3s ease, text-shadow 0.3s ease; /* Transisi halus */
+        }
+
+        .title:hover {
+            transform: translateZ(10px) scale(1.05); /* Efek 3D saat hover */
+            text-shadow: 
+                0 0 10px rgba(255, 204, 0, 1), /* Efek glow kuning saat hover */
+                0 0 20px rgba(255, 204, 0, 0.8),
+                0 0 30px rgba(255, 204, 0, 0.6);
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .social-links a {
+            font-size: 2.5rem; /* Ukuran font */
+            color: #fff;
+            margin: 0 1.5rem;
+            position: relative;
+            text-shadow: 0 0 15px rgba(0,255,255,0.5);
+        }
+
+        .social-links a:hover {
+            color: #0ff;
+            transform: translateZ(50px) rotateY(20deg);
+            text-shadow: 
+                0 0 10px #0ff,
+                0 0 20px #0ff,
+                0 0 30px #0ff;
+        }
+
+        .skills {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .skill-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background: rgba(255,255,255,0.08);
+            border: 2px solid rgba(0,255,255,0.2);
+            padding: 2.5rem;
+            border-radius: 15px;
+            backdrop-filter: blur(15px);
+            box-shadow: 
+                0 0 20px rgba(0,255,255,0.2),
+                inset 0 0 15px rgba(0,255,255,0.1);
+            transition: all 0.4s ease;
+            cursor: pointer;
+            transform-style: preserve-3d;
+        }
+
+        .skill-item:hover {
+            transform: translateZ(50px) scale(1.05);
+            border-color: rgba(0,255,255,0.6);
+            box-shadow: 
+                0 0 30px rgba(0,255,255,0.4),
+                inset 0 0 20px rgba(0,255,255,0.3);
+        }
+
+        .skill-item img {
+            width: 70px;
+            height: 70px;
+            filter: drop-shadow(0 0 10px rgba(0,255,255,0.4));
+            transition: all 0.3s ease;
+        }
+
+        .projects-section {
+            margin-top: 5rem; /* Menambahkan jarak antara daftar proyek dan daftar bahasa pemrograman */
+        }
+
+        .project-list {
+            display: flex;
+            flex-wrap: wrap; /* Membuat proyek berpindah ke baris berikutnya jika tidak muat */
+            gap: 2rem; /* Jarak antar proyek */
+        }
+
+        .project-card {
+            flex: 1 1 calc(30% - 2rem); /* Mengatur lebar proyek, 3 proyek per baris */
+            margin: 0; /* Menghapus margin */
+            padding: 1.5rem; /* Menambahkan padding untuk proyek */
+            background: rgba(255,255,255,0.05);
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(0,255,255,0.1);
+            transition: all 0.3s ease;
+        }
+
+        .project-card:hover {
+            transform: translateY(-10px);
+            border-color: rgba(0,255,255,0.3);
+            box-shadow: 0 10px 30px rgba(0,255,255,0.2);
+        }
+
+        .project-title {
+            font-size: 1.8rem;
+            color: #0ff;
+            margin-bottom: 1rem;
+        }
+
+        .project-description {
+            color: #ccc;
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+
+        .project-tech {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .project-tech span {
+            background: rgba(0,255,255,0.1);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            color: #0ff;
+            border: 1px solid rgba(0,255,255,0.2);
+        }
+
+        .scroll-indicator {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: #0ff;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-20px); }
+            60% { transform: translateY(-10px); }
+        }
+
+        .products-section {
+            margin-top: 5rem; /* Jarak dari bagian sebelumnya */
+        }
+
+        .product-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem; /* Jarak antar produk */
+        }
+
+        .product-card {
+            flex: 1 1 calc(30% - 2rem); /* Mengatur lebar produk, 3 produk per baris */
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 1.5rem;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(0, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .product-card:hover {
+            transform: translateY(-10px);
+            border-color: rgba(0, 255, 255, 0.3);
+            box-shadow: 0 10px 30px rgba(0, 255, 255, 0.2);
+        }
+
+        .product-title {
+            font-size: 1.8rem;
+            color: #0ff;
+            margin-bottom: 1rem;
+        }
+
+        .product-description {
+            color: #ccc;
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <div class="profile">
+            <h1 class="name">DEWA PRATAMA</h1>
+            <p class="title" id="title"></p> <!-- Kosongkan teks di sini -->
+
+            <div class="social-links">
+                <a href="#" title="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+                <a href="#" title="Instagram"><i class="fab fa-instagram"></i></a>
+                <a href="#" title="Discord"><i class="fab fa-discord"></i></a>
+            </div>
+
+            <div class="skills">
+                <div class="skill-item">
+                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" alt="Python">
+                    <span>Python</span>
+                </div>
+                <div class="skill-item">
+                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" alt="JavaScript">
+                    <span>JavaScript</span>
+                </div>
+                <div class="skill-item">
+                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" alt="HTML5">
+                    <span>HTML5</span>
+                </div>
+                <div class="skill-item">
+                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg" alt="CSS3">
+                    <span>CSS3</span>
+                </div>
+                <div class="skill-item">
+                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" alt="React">
+                    <span>React</span>
+                </div>
+                <div class="skill-item">
+                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg" alt="TypeScript">
+                    <span>TypeScript</span>
+                </div>
+                <div class="skill-item">
+                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg" alt="Java">
+                    <span>Java</span>
+                </div>
+                <div class="skill-item">
+                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/cplusplus/cplusplus-original.svg" alt="C++">
+                    <span>C++</span>
+                </div>
+                <div class="skill-item">
+                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/php/php-original.svg" alt="PHP">
+                    <span>PHP</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="projects-section">
+            <h2 class="section-title">Featured Projects</h2>
+            <div class="project-list">
+                <div class="project-card">
+                    <h3 class="project-title">Discord Bot Assistant</h3>
+                    <p class="project-description">
+                        Bot Discord pintar yang dapat membantu mengelola server Anda dengan fitur moderasi,
+                        musik, dan sistem level yang canggih. Dibuat dengan Discord.js dan Node.js.
+                    </p>
+                    <div class="project-tech">
+                        <span>Node.js</span>
+                        <span>Discord.js</span>
+                        <span>MongoDB</span>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <h3 class="project-title">WhatsApp Business Automation</h3>
+                    <p class="project-description">
+                        Bot WhatsApp untuk bisnis yang dapat menangani pesan otomatis, broadcast,
+                        dan integrasi dengan CRM. Menggunakan whatsapp-web.js dengan fitur AI.
+                    </p>
+                    <div class="project-tech">
+                        <span>Python</span>
+                        <span>Selenium</span>
+                        <span>OpenAI API</span>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <h3 class="project-title">Automation Suite</h3>
+                    <p class="project-description">
+                        Kumpulan tools otomasi untuk meningkatkan produktivitas, termasuk
+                        web scraping, data processing, dan task scheduling.
+                    </p>
+                    <div class="project-tech">
+                        <span>Python</span>
+                        <span>Pandas</span>
+                        <span>Beautiful Soup</span>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <h3 class="project-title">Portfolio Website</h3>
+                    <p class="project-description">
+                        Website portofolio pribadi yang menampilkan proyek dan keterampilan.
+                    </p>
+                    <div class="project-tech">
+                        <span>HTML</span>
+                        <span>CSS</span>
+                        <span>JavaScript</span>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <h3 class="project-title">E-commerce Website</h3>
+                    <p class="project-description">
+                        Website e-commerce sederhana dengan fitur keranjang belanja.
+                    </p>
+                    <div class="project-tech">
+                        <span>PHP</span>
+                        <span>MySQL</span>
+                        <span>JavaScript</span>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <h3 class="project-title">Chat Application</h3>
+                    <p class="project-description">
+                        Aplikasi chat real-time menggunakan WebSocket.
+                    </p>
+                    <div class="project-tech">
+                        <span>Node.js</span>
+                        <span>Socket.io</span>
+                        <span>Express</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="products-section">
+            <h2 class="section-title">Produk yang Dijual</h2>
+            <div class="product-list">
+                <div class="product-card">
+                    <h3 class="product-title">Bot WhatsApp Auto Market</h3>
+                    <p class="product-description">
+                        Bot otomatis untuk WhatsApp yang membantu dalam pemasaran produk dengan fitur pengiriman pesan massal dan interaksi otomatis.
+                    </p>
+                    <ul class="product-features">
+                        <li>Pengiriman pesan otomatis</li>
+                        <li>Integrasi dengan API WhatsApp</li>
+                        <li>Fitur analitik untuk melacak interaksi</li>
+                    </ul>
+                </div>
+
+                <div class="product-card">
+                    <h3 class="product-title">Bot Discord Auto Market</h3>
+                    <p class="product-description">
+                        Bot otomatis untuk Discord yang memudahkan pemasaran produk dengan fitur pengumuman dan interaksi pengguna.
+                    </p>
+                    <ul class="product-features">
+                        <li>Pengumuman otomatis di saluran</li>
+                        <li>Interaksi pengguna yang responsif</li>
+                        <li>Fitur manajemen komunitas</li>
+                    </ul>
+                </div>
+
+                <div class="product-card">
+                    <h3 class="product-title">Open Request</h3>
+                    <p class="product-description">
+                        Buka permintaan untuk proyek ringan sesuai kebutuhan Anda. Hubungi kami untuk detail lebih lanjut.
+                    </p>
+                    <ul class="product-features">
+                        <li>Proyek ringan sesuai permintaan</li>
+                        <li>Estimasi waktu dan biaya yang jelas</li>
+                        <li>Komunikasi langsung untuk kebutuhan spesifik</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="scroll-indicator">
+        <i class="fas fa-chevron-down"></i>
+    </div>
+
+    <script>
+        // Script untuk animasi scroll
+        document.addEventListener('DOMContentLoaded', () => {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            });
+
+            document.querySelectorAll('.projects-section').forEach((section) => {
+                observer.observe(section);
+            });
+
+            // Animasi ketikan untuk judul
+            const titleText = "Software Developer";
+            let index = 0;
+
+            function typeTitle() {
+                if (index < titleText.length) {
+                    document.getElementById("title").innerHTML += titleText.charAt(index);
+                    index++;
+                    setTimeout(typeTitle, 100); // Kecepatan ketikan
+                }
+            }
+
+            typeTitle(); // Memulai animasi ketikan
+        });
+    </script>
+</body>
+</html>
